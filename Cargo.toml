@@ -6,3 +6,5 @@ edition = "2024"
 [dependencies]
 rocket = "0.5.1"
 rocket_cors = "0.6.0"
+shuttle-rocket = "0.57.0"
+shuttle-runtime = "0.57.0"

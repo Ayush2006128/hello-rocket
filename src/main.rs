@@ -41,9 +41,10 @@ fn calculate(query: CalcQuery) -> String {
         _ => "UNKNOWN METHOD!".into(),
     }
 }
+
 // warning the logic shouldn't be used in production!
-#[launch]
-fn rocket() -> _ {
+#[shuttle_runtime::main]
+fn rocket() -> shuttle_rocket::ShuttleRocket {
     let cors = CorsOptions::default()
         .allowed_origins(AllowedOrigins::all())
         .allowed_methods(
@@ -56,5 +57,7 @@ fn rocket() -> _ {
 
     rocket::build()
         .attach(cors.to_cors().unwrap())
-        .mount("/", routes![index, calculate])
+        .mount("/", routes![index, calculate]);
+
+    Ok(rocket.into())
 }
