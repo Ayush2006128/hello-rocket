@@ -44,7 +44,7 @@ fn calculate(query: CalcQuery) -> String {
 
 // warning the logic shouldn't be used in production!
 #[shuttle_runtime::main]
-fn rocket() -> shuttle_rocket::ShuttleRocket {
+async fn rocket() -> shuttle_rocket::ShuttleRocket {
     let cors = CorsOptions::default()
         .allowed_origins(AllowedOrigins::all())
         .allowed_methods(
@@ -55,7 +55,7 @@ fn rocket() -> shuttle_rocket::ShuttleRocket {
         )
         .allow_credentials(true);
 
-    rocket::build()
+    let rocket = rocket::build()
         .attach(cors.to_cors().unwrap())
         .mount("/", routes![index, calculate]);
 
